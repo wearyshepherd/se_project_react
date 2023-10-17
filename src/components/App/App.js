@@ -72,9 +72,8 @@ function App() {
             buttonText="Add garment"
             onClose={handleCloseModal}
           >
-            <label className="modal__label">Name</label>
-
-            <input
+            <label className="modal__label">Name
+     <input
               className="modal__input modal__input_type_text"
               type="text"
               name="name"
@@ -83,15 +82,20 @@ function App() {
               placeholder="Name"
               id="name"
             />
-            <label className="modal__label">Image</label>
-            <input
+              
+              </label>
+
+
+            <label className="modal__label">Image
+                            <input
               className="modal__input modal__input_type_text"
               type="url"
               name="link"
               minLength="1"
               id="link"
               placeholder="Image URL"
-            />
+            /></label>
+
             <label className="modal__label">Select the weather type:</label>
             <div>
               <div className="modal__radio-container">
