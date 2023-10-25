@@ -1,5 +1,6 @@
 import Header from "../Header/Header";
 import Main from "../Main/Main";
+import Profile from '../Profile/Profile';
 import Footer from "../Footer/Footer";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal";
@@ -12,6 +13,7 @@ import {
 } from "../../utils/weatherApi.js";
 import "./App.css";
 import "../ModalWithForm/ModalWithForm.css";
+import { Route, Switch } from "react-router-dom";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
@@ -39,6 +41,10 @@ function App() {
       : setCurrentTemperatureUnit("F");
   };
 
+  // useEffect(() => {
+  //   navigator('/')
+  // }, [])
+
   useEffect(() => {
     getForecastWeather()
       .then((data) => {
@@ -48,7 +54,7 @@ function App() {
         console.error(err);
       });
   }, []);
-
+ 
   useEffect(() => {
     getForecastWeather()
       .then((data) => {
@@ -65,7 +71,14 @@ function App() {
         value={{ currentTemperatureUnit, handleToggleSwitchChange }}
       >
         <Header onCreateModal={handleCreateModal} weatherCity={city} />
-        <Main weatherTemp={temp} onSelectCard={handleSelectedCard} />
+        <Switch>
+          <Route exact path='/'>
+            <Main weatherTemp={temp} onSelectCard={handleSelectedCard} />
+          </Route>
+          <Route path='/profile'>
+            <Profile />  
+          </Route>
+        </Switch>
         <Footer />
         {activeModal === "create" && (
           <ModalWithForm
@@ -143,4 +156,3 @@ function App() {
 }
 
 export default App;
-
