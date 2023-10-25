@@ -1,27 +1,41 @@
-.itemCard {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.card {
+  display: flex;
+  justify-content: center;
 }
 
-.itemCard__image {
-    height: 328px;
-    width: 328px;
-    border-radius: 10px;
-}
+.card__section {
+  margin-top: 20px;
 
-.itemCard__image:hover {
-    cursor: pointer;
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 25px;
+  letter-spacing: 0em;
+  text-align: left;
 }
-
-.itemCard__name {
-    position: absolute;
-    top: 16px;
-    height: 24px;
-    width: 73px;
-    padding: 2px 12px;
-    border-radius: 4px;
-    text-align: center;
-    background-color: #fff;
+.card__name {
+  text-align: center;
+  padding: 5px;
+  background-color: white;
+  border-radius: 5px;
+  position: absolute;
+  margin-top: 16px;
+  /* padding: 0 5px; */
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  font-style: normal;
+}
+.card__image {
+  width: 328px;
+  height: 328px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.card__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 40px;
 }
