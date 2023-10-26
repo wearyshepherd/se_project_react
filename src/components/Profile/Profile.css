@@ -1,0 +1,10 @@
+.profile {
+    height: 100vh;
+    width: 100vw;
+    padding-top: 41px;
+    background-color: yellow;
+}
+
+.profile__info {
+    display: flex;
+}
