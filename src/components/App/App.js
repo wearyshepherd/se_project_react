@@ -46,6 +46,7 @@ function App() {
   // }, [])
 
   useEffect(() => {
+    getForecastWeather()
       .then((data) => {
         setTemp(parseWeatherData(data));
       })
@@ -55,6 +56,7 @@ function App() {
   }, []);
  
   useEffect(() => {
+    getForecastWeather()
       .then((data) => {
         setCity(parseCityData(data));
       })
@@ -84,8 +86,9 @@ function App() {
             buttonText="Add garment"
             onClose={handleCloseModal}
           >
-            <label className="modal__label">Name
-              <input
+            <label className="modal__label">Name</label>
+
+            <input
               className="modal__input modal__input_type_text"
               type="text"
               name="name"
@@ -93,10 +96,8 @@ function App() {
               maxLength="30"
               placeholder="Name"
               id="name"
-            /></label>
-
-
-            <label className="modal__label">Image
+            />
+            <label className="modal__label">Image</label>
             <input
               className="modal__input modal__input_type_text"
               type="url"
@@ -104,8 +105,7 @@ function App() {
               minLength="1"
               id="link"
               placeholder="Image URL"
-            /></label>
-
+            />
             <label className="modal__label">Select the weather type:</label>
             <div>
               <div className="modal__radio-container">
