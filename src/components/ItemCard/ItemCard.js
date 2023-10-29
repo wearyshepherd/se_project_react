@@ -6,6 +6,7 @@ const ItemCard = ({ key, item, onSelectCard }) => {
       <h3 className="itemCard__name">{item.name}</h3>
       <img
         src={item.link}
+        alt={item.name}  {/* Add the alt attribute with the item's name */}
         className="itemCard__image"
         onClick={() => onSelectCard(item)}
       />
