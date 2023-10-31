@@ -1,22 +1,24 @@
-import "./ItemModal.css";
+import "./ModalWithForm.css";
 
-const ItemModal = ({ selectedCard, onClose }) => {
+const ModalWithForm = ({ children, buttonText, title, onClose, modalName }) => {
   return (
-    <div className="modal__preview">
+    <div className={`modal modal_type_${modalName}`}>
       <div className="modal__content">
         <button className="modal__close" onClick={onClose}></button>
-        <img
-          className="modal__image"
-          src={selectedCard.link}
-          alt={`picture of a ${selectedCard.name}`}
-        />
-        <div className="modal__description-wrap">
-          <div className="modal__description">{selectedCard.name}</div>
-          <div className="modal__description">Weather: {selectedCard.weather}</div>
-        </div>
+        <h3 className="modal__title">{title}</h3>
+        <form className="form">
+          <fieldset className="modal__fieldset">
+            {children}
+            <div className="modal__button-container">
+            <button className="modal__submit-button" type="submit">
+              {buttonText}
+            </button>
+            </div>
+          </fieldset>
+        </form>
       </div>
     </div>
   );
 };
 
-export default ItemModal;
+export default ModalWithForm;
