@@ -87,7 +87,7 @@ function App() {
             onClose={handleCloseModal}
           >
             <label className="modal__label">Name</label>
-            <label
+
             <input
               className="modal__input modal__input_type_text"
               type="text"
@@ -97,9 +97,7 @@ function App() {
               placeholder="Name"
               id="name"
             />
-            </label>
             <label className="modal__label">Image</label>
-            <label
             <input
               className="modal__input modal__input_type_text"
               type="url"
@@ -108,7 +106,6 @@ function App() {
               id="link"
               placeholder="Image URL"
             />
-            </label>
             <label className="modal__label">Select the weather type:</label>
             <div>
               <div className="modal__radio-container">
