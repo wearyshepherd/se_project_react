@@ -54,6 +54,16 @@ function App() {
         console.error(err);
       });
   }, []);
+ 
+  useEffect(() => {
+    getForecastWeather()
+      .then((data) => {
+        setCity(parseCityData(data));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
 
   return (
     <div className="App">
@@ -77,7 +87,7 @@ function App() {
             onClose={handleCloseModal}
           >
             <label className="modal__label">Name</label>
-            <label>
+
             <input
               className="modal__input modal__input_type_text"
               type="text"
@@ -86,20 +96,16 @@ function App() {
               maxLength="30"
               placeholder="Name"
               id="name"
-             />
-             </label>
-             <label className="modal__label">Image</label>
-          
-              <label>        
-              <input
+            />
+            <label className="modal__label">Image</label>
+            <input
               className="modal__input modal__input_type_text"
               type="url"
               name="link"
               minLength="1"
               id="link"
               placeholder="Image URL"
-              />
-              </label>
+            />
             <label className="modal__label">Select the weather type:</label>
             <div>
               <div className="modal__radio-container">
