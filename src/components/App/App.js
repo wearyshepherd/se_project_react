@@ -46,7 +46,6 @@ function App() {
   // }, [])
 
   useEffect(() => {
-    getForecastWeather()
       .then((data) => {
         setTemp(parseWeatherData(data));
       })
