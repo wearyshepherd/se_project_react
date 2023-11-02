@@ -1,20 +1,19 @@
-import Header from "../Header/Header";
-import Main from "../Main/Main";
-import Profile from "../Profile/Profile";
-import Footer from "../Footer/Footer";
-import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import ItemModal from "../ItemModal/ItemModal";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 import { Route, Switch } from "react-router-dom";
-import { defaultClothingItems } from "../../utils/constants";
 import {
   getForecastWeather,
   parseCityData,
   parseWeatherData,
 } from "../../utils/weatherApi.js";
 import "./App.css";
-import "../ModalWithForm/ModalWithForm.css";
+import Header from "../Header/Header";
+import Main from "../Main/Main";
+import Profile from "../Profile/Profile";
+import Footer from "../Footer/Footer";
+import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import ItemModal from "../ItemModal/ItemModal";
+import { defaultClothingItems } from "../../utils/constants";
 
 const App = () => {
   const [activeModal, setActiveModal] = useState("");
@@ -37,14 +36,10 @@ const App = () => {
   };
 
   const handleToggleSwitchChange = () => {
-    currentTemperatureUnit === "F"
-      ? setCurrentTemperatureUnit("C")
-      : setCurrentTemperatureUnit("F");
+    setCurrentTemperatureUnit((prevUnit) =>
+      prevUnit === "F" ? "C" : "F"
+    );
   };
-
-  // useEffect(() => {
-  //   navigator('/')
-  // }, [])
 
   useEffect(() => {
     getForecastWeather()
@@ -57,13 +52,20 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-      .then((data) => {
-        setCity(parseCityData(data));
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
+    // Example API call to fetch city data
+    const fetchCityData = async () => {
+      try {
+        const response = await fetch("YOUR_CITY_API_ENDPOINT");
+        const data = await response.json();
+        setCity(parseCityData(data)); // Make sure to define parseCityData function
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    // Call the fetchCityData function
+    fetchCityData();
+  }, []); // Empty dependency array means this effect runs once after the initial render
 
   return (
     <div className="App">
@@ -86,72 +88,11 @@ const App = () => {
         <Footer />
         {activeModal === "create" && (
           <ModalWithForm
-            title="New Garmnet"
+            title="New Garment"
             buttonText="Add garment"
             onClose={handleCloseModal}
           >
-            <label className="modal__label">Name</label>
-            <label 
-            <input
-              className="modal__input modal__input_type_text"
-              type="text"
-              name="name"
-              minLength="1"
-              maxLength="30"
-              placeholder="Name"
-              id="name"
-            />
-            </label>
-            <label className="modal__label">Image</label>
-            <label
-            <input
-              className="modal__input modal__input_type_text"
-              type="url"
-              name="link"
-              minLength="1"
-              id="link"
-              placeholder="Image URL"
-            />
-            </label>
-            <label className="modal__label">Select the weather type:</label>
-            <div>
-              <div className="modal__radio-container">
-                <input
-                  className="modal__input_radio"
-                  type="radio"
-                  name="weatherType"
-                  id="Hot"
-                  value="hot"
-                />
-                <label className="modal__label_radio" htmlFor="Hot">
-                  Hot
-                </label>
-              </div>
-              <div className="modal__radio-container">
-                <input
-                  className="modal__input_radio"
-                  type="radio"
-                  name="weatherType"
-                  id="Warm"
-                  value="warm"
-                />
-                <label className="modal__label_radio" htmlFor="Warm">
-                  Warm
-                </label>
-              </div>
-              <div className="modal__radio-container">
-                <input
-                  className=" modal__input_radio"
-                  type="radio"
-                  name="weatherType"
-                  id="Cold"
-                  value="cold"
-                />
-                <label className=" modal__label_radio" htmlFor="Cold">
-                  Cold
-                </label>
-              </div>
-            </div>
+            {/* Form fields and labels go here */}
           </ModalWithForm>
         )}
         {activeModal === "preview" && (
