@@ -10,9 +10,9 @@ const ModalWithForm = ({ children, buttonText, title, onClose, modalName }) => {
           <fieldset className="modal__fieldset">
             {children}
             <div className="modal__button-container">
-            <button className="modal__submit-button" type="submit">
-              {buttonText}
-            </button>
+              <button className="modal__submit-button" type="submit">
+                {buttonText}
+              </button>
             </div>
           </fieldset>
         </form>
