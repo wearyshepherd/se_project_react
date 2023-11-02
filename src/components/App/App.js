@@ -57,7 +57,6 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    getForecastWeather()
       .then((data) => {
         setCity(parseCityData(data));
       })
