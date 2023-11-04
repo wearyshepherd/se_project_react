@@ -86,73 +86,15 @@ const App = () => {
             buttonText="Add Garment"
             onClose={handleCloseModal}
           >
-            <label className="modal__label" htmlFor="name">
-              Name
-            </label>
-            <input
-              className="modal__input modal__input_type_text"
-              type="text"
-              name="name"
-              minLength="1"
-              maxLength="30"
-              placeholder="Name"
-              id="name"
-            />
-
-            <label className="modal__label" htmlFor="link">
-              Image
-            </label>
-            <input
-              className="modal__input modal__input_type_text"
-              type="url"
-              name="link"
-              minLength="1"
-              id="link"
-              placeholder="Image URL"
-            />
-
-            <label className="modal__label">Select the weather type:</label>
-            <div>
-              <div className="modal__radio-container">
-                <input
-                  className="modal__input_radio"
-                  type="radio"
-                  name="weatherType"
-                  id="Hot"
-                  value="hot"
-                />
-                <label className="modal__label_radio" htmlFor="Hot">
-                  Hot
-                </label>
-              </div>
-              <div className="modal__radio-container">
-                <input
-                  className="modal__input_radio"
-                  type="radio"
-                  name="weatherType"
-                  id="Warm"
-                  value="warm"
-                />
-                <label className="modal__label_radio" htmlFor="Warm">
-                  Warm
-                </label>
-              </div>
-              <div className="modal__radio-container">
-                <input
-                  className="modal__input_radio"
-                  type="radio"
-                  name="weatherType"
-                  id="Cold"
-                  value="cold"
-                />
-                <label className="modal__label_radio" htmlFor="Cold">
-                  Cold
-                </label>
-              </div>
-            </div>
+            {/* Modal form content */}
           </ModalWithForm>
         )}
         {activeModal === "preview" && (
           <ItemModal selectedCard={selectedCard} onClose={handleCloseModal} />
         )}
-      </CurrentTemperatureUnit
+      </CurrentTemperatureUnitContext.Provider>
+    </div>
+  );
+};
+
+export default App;
