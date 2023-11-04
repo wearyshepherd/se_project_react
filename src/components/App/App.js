@@ -57,6 +57,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
+    getForecastWeather()
       .then((data) => {
         setCity(parseCityData(data));
       })
@@ -91,7 +92,7 @@ const App = () => {
             onClose={handleCloseModal}
           >
             <label className="modal__label">Name</label>
-            <label
+
             <input
               className="modal__input modal__input_type_text"
               type="text"
@@ -101,9 +102,7 @@ const App = () => {
               placeholder="Name"
               id="name"
             />
-            </label>
             <label className="modal__label">Image</label>
-            <label
             <input
               className="modal__input modal__input_type_text"
               type="url"
@@ -112,7 +111,6 @@ const App = () => {
               id="link"
               placeholder="Image URL"
             />
-            </label>
             <label className="modal__label">Select the weather type:</label>
             <div>
               <div className="modal__radio-container">
