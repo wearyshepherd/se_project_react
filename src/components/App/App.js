@@ -1,10 +1,10 @@
+import React, { useEffect, useState } from "react";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Profile from "../Profile/Profile";
 import Footer from "../Footer/Footer";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal";
-import { useEffect, useState } from "react";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 import { Route, Switch } from "react-router-dom";
 import { defaultClothingItems } from "../../utils/constants";
@@ -37,14 +37,8 @@ const App = () => {
   };
 
   const handleToggleSwitchChange = () => {
-    currentTemperatureUnit === "F"
-      ? setCurrentTemperatureUnit("C")
-      : setCurrentTemperatureUnit("F");
+    setCurrentTemperatureUnit((prevUnit) => (prevUnit === "F" ? "C" : "F"));
   };
-
-  // useEffect(() => {
-  //   navigator('/')
-  // }, [])
 
   useEffect(() => {
     getForecastWeather()
@@ -57,6 +51,8 @@ const App = () => {
   }, []);
 
   useEffect(() => {
+    // Assuming you have a function named getCityWeather()
+    getCityWeather()
       .then((data) => {
         setCity(parseCityData(data));
       })
@@ -86,12 +82,13 @@ const App = () => {
         <Footer />
         {activeModal === "create" && (
           <ModalWithForm
-            title="New Garmnet"
-            buttonText="Add garment"
+            title="New Garment"
+            buttonText="Add Garment"
             onClose={handleCloseModal}
           >
-            <label className="modal__label">Name</label>
-            <label
+            <label className="modal__label" htmlFor="name">
+              Name
+            </label>
             <input
               className="modal__input modal__input_type_text"
               type="text"
@@ -101,9 +98,10 @@ const App = () => {
               placeholder="Name"
               id="name"
             />
+
+            <label className="modal__label" htmlFor="link">
+              Image
             </label>
-            <label className="modal__label">Image</label>
-            <label
             <input
               className="modal__input modal__input_type_text"
               type="url"
@@ -112,7 +110,7 @@ const App = () => {
               id="link"
               placeholder="Image URL"
             />
-            </label>
+
             <label className="modal__label">Select the weather type:</label>
             <div>
               <div className="modal__radio-container">
@@ -141,13 +139,13 @@ const App = () => {
               </div>
               <div className="modal__radio-container">
                 <input
-                  className=" modal__input_radio"
+                  className="modal__input_radio"
                   type="radio"
                   name="weatherType"
                   id="Cold"
                   value="cold"
                 />
-                <label className=" modal__label_radio" htmlFor="Cold">
+                <label className="modal__label_radio" htmlFor="Cold">
                   Cold
                 </label>
               </div>
@@ -157,9 +155,4 @@ const App = () => {
         {activeModal === "preview" && (
           <ItemModal selectedCard={selectedCard} onClose={handleCloseModal} />
         )}
-      </CurrentTemperatureUnitContext.Provider>
-    </div>
-  );
-};
-
-export default App;
+      </CurrentTemperatureUnit
