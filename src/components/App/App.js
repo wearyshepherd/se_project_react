@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Route, Switch } from "react-router-dom";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Profile from "../Profile/Profile";
@@ -6,10 +7,10 @@ import Footer from "../Footer/Footer";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
-import { Route, Switch } from "react-router-dom";
 import { defaultClothingItems } from "../../utils/constants";
 import {
   getForecastWeather,
+  getCityWeather, // Make sure this function is imported
   parseCityData,
   parseWeatherData,
 } from "../../utils/weatherApi.js";
@@ -51,8 +52,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    // Assuming you have a function named getCityWeather()
-    getCityWeather()
+    getCityWeather() // Assuming this function fetches city weather data
       .then((data) => {
         setCity(parseCityData(data));
       })
