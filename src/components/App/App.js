@@ -55,7 +55,9 @@ const App = () => {
   }, []); // The empty dependency array ensures this effect runs once after the initial render
 
   return (
-    // ... rest of your component code
+    <div className="App">
+      {/* Rest of your component code */}
+    </div>
   );
 };
 
