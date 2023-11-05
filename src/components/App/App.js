@@ -44,22 +44,48 @@ const App = () => {
     getForecastWeather()
       .then((data) => {
         setTemp(parseWeatherData(data));
-        // Here, you can set the city using parseCityData or any other logic based on the forecast data.
-        // For example:
         const parsedCity = parseCityData(data);
-        setCity(parsedCity); // Set city based on forecast data
+        setCity(parsedCity);
       })
       .catch((err) => {
         console.error(err);
       });
-  }, []); // The empty dependency array ensures this effect runs once after the initial render
+  }, []);
 
   return (
     <div className="App">
-      {/* Rest of your component code */}
+      <CurrentTemperatureUnitContext.Provider
+        value={{ currentTemperatureUnit, handleToggleSwitchChange }}
+      >
+        <Header onCreateModal={handleCreateModal} weatherCity={city} />
+        <Switch>
+          <Route exact path="/">
+            <Main weatherTemp={temp} onSelectCard={handleSelectedCard} />
+          </Route>
+          <Route path="/profile">
+            <Profile
+              onSelectCard={handleSelectedCard}
+              handleOpenModal={handleCreateModal}
+              clothingItems={defaultClothingItems}
+            />
+          </Route>
+        </Switch>
+        <Footer />
+        {activeModal === "create" && (
+          <ModalWithForm
+            title="New Garment"
+            buttonText="Add Garment"
+            onClose={handleCloseModal}
+          >
+            {/* Modal form content */}
+          </ModalWithForm>
+        )}
+        {activeModal === "preview" && (
+          <ItemModal selectedCard={selectedCard} onClose={handleCloseModal} />
+        )}
+      </CurrentTemperatureUnitContext.Provider>
     </div>
   );
 };
 
 export default App;
-
