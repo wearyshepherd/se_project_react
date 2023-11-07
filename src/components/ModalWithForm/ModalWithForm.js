@@ -1,5 +1,5 @@
 import React from "react";
-import "./YourModalStyles.css"; // Import your ModalWithForm styles
+import "./ModalWithForm.css"; // Import ModalWithForm styles
 
 const ModalWithForm = ({ children, buttonText, title, onClose, modalName }) => {
   return (
