@@ -49,15 +49,6 @@ function App() {
       });
   }, []);
 
-  useEffect(() => {
-      .then((data) => {
-        setCity(parseCityData(data));
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
-
   return (
     <div className="App">
       <CurrentTemperatureUnitContext.Provider
