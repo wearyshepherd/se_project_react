@@ -8,18 +8,16 @@ const ToggleSwitch = () => {
   );
 
   return (
-    <label className="switch" for="switch">
+    <label className="switch" htmlFor="switch">
       <input
         id="switch"
         type="checkbox"
         className="switch__checkbox"
         onChange={handleToggleSwitchChange}
       />
-      <span
-        className='switch__slider'>
-      </span>
-      <p className={`switch__temp-f ${currentTemperatureUnit === 'F' && 'switch__active'}`}>F</p>
-      <p className={`switch__temp-c ${currentTemperatureUnit === 'C' && 'switch__active'}`}>C</p>
+      <p className="switch__temp-unit-f">F</p>
+      <p className="switch__temp-unit-c">C</p>
+      <span className="switch__slider"></span>
     </label>
   );
 };
