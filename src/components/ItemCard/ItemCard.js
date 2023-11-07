@@ -1,7 +1,7 @@
 import React from "react";
 import "./ItemCard.css";
 
-const ItemCard = ({ key, item, onSelectCard }) => {
+const ItemCard = ({ item, onSelectCard }) => {
   return (
     <li className="itemCard">
       <h3 className="itemCard__name">{item.name}</h3>
@@ -16,3 +16,4 @@ const ItemCard = ({ key, item, onSelectCard }) => {
 };
 
 export default ItemCard;
+
