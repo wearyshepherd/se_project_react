@@ -73,7 +73,7 @@ const App = () => {
         const cards = await getCards();
         setClothingItems(cards);
       } catch (error) {
-        console.error("Error fetching clothing items:", error);
+  
       }
     };
 
