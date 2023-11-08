@@ -1,11 +1,4 @@
-import Header from "../Header/Header";
-import Main from "../Main/Main";
-import Profile from "../Profile/Profile";
-import Footer from "../Footer/Footer";
-import AddItemModal from "../AddItemModal/AddItemModal";
-import ItemModal from "../ItemModal/ItemModal";
-import ModalWithConfirmation from "../ModalWithConfirmation/ModalWithConfirmation";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 import { Route, Switch } from "react-router-dom";
 import { getCards, postCard, deleteCard } from "../../utils/api";
@@ -14,6 +7,13 @@ import {
   parseCityData,
   parseWeatherData,
 } from "../../utils/weatherApi.js";
+import Header from "../Header/Header";
+import Main from "../Main/Main";
+import Profile from "../Profile/Profile";
+import Footer from "../Footer/Footer";
+import AddItemModal from "../AddItemModal/AddItemModal";
+import ItemModal from "../ItemModal/ItemModal";
+import ModalWithConfirmation from "../ModalWithConfirmation/ModalWithConfirmation";
 import "./App.css";
 
 const App = () => {
@@ -38,70 +38,60 @@ const App = () => {
   };
 
   const handleToggleSwitchChange = () => {
-    currentTemperatureUnit === "F"
-      ? setCurrentTemperatureUnit("C")
-      : setCurrentTemperatureUnit("F");
+    setCurrentTemperatureUnit((prevUnit) =>
+      prevUnit === "F" ? "C" : "F"
+    );
   };
 
-  const handleOnAddItemSubmit = ({name, imageUrl, weather}) => {
+  const handleOnAddItemSubmit = async ({ name, imageUrl, weather }) => {
     const newItem = {
       name,
       imageUrl,
       weather,
+    };
+
+    try {
+      await postCard(newItem);
+      setClothingItems([newItem, ...clothingItems]);
+    } catch (error) {
+      console.error("Error adding item:", error);
     }
-    
-    postCard(newItem)
-      .catch((err) => {
-        console.error(err);
-      })
-    setClothingItems([newItem, ...clothingItems])
   };
 
-  const openConfirmationModal = () => {
-    setActiveModal("delete");
-  };
-
-  const handleCardDelete = () => {
+  const handleDeleteCard = () => {
     deleteCard(selectedCard._id)
-      .then(() => {
-        getCards();
-      })
-      .then((data) => {
-        setClothingItems(data);
-      })
-      .catch((err) => {
-        console.error(err);
+      .then(() => getCards())
+      .then((data) => setClothingItems(data))
+      .catch((error) => {
+        console.error("Error deleting item:", error);
       });
   };
 
   useEffect(() => {
-    getForecastWeather()
-      .then((data) => {
-        setTemp(parseWeatherData(data));
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
-
-  useEffect(() => {
-    getForecastWeather()
-      .then((data) => {
-        setCity(parseCityData(data));
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
-
-  useEffect(() => {
-    getCards()
-      .then((cards) => {
+    const fetchData = async () => {
+      try {
+        const cards = await getCards();
         setClothingItems(cards);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      } catch (error) {
+        console.error("Error fetching clothing items:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchWeatherData = async () => {
+      try {
+        const data = await getForecastWeather();
+        setTemp(parseWeatherData(data));
+        setCity(parseCityData(data));
+      } catch (error) {
+        console.error("Error fetching weather data:", error);
+      }
+    };
+
+    fetchWeatherData();
   }, []);
 
   return (
@@ -138,14 +128,14 @@ const App = () => {
           <ItemModal
             selectedCard={selectedCard}
             onClose={handleCloseModal}
-            openModal={openConfirmationModal}
+            openModal={handleDeleteCard} // Open confirmation modal when delete is clicked
           />
         )}
         {activeModal === "delete" && (
           <ModalWithConfirmation
             isOpen={activeModal === "delete"}
             onClose={handleCloseModal}
-            onSubmit={handleCardDelete}
+            onSubmit={handleDeleteCard}
           />
         )}
       </CurrentTemperatureUnitContext.Provider>
