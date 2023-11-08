@@ -1,22 +1,28 @@
-import React, { useEffect, useState } from "react";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
+import Profile from "../Profile/Profile";
 import Footer from "../Footer/Footer";
-import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import AddItemModal from "../AddItemModal/AddItemModal";
 import ItemModal from "../ItemModal/ItemModal";
+import ModalWithConfirmation from "../ModalWithConfirmation/ModalWithConfirmation";
+import { useEffect, useState } from "react";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
+import { Route, Switch } from "react-router-dom";
+import { getCards, postCard, deleteCard } from "../../utils/api";
 import {
   getForecastWeather,
+  parseCityData,
   parseWeatherData,
 } from "../../utils/weatherApi.js";
 import "./App.css";
-import "../ModalWithForm/ModalWithForm.css";
 
-function App() {
+const App = () => {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [temp, setTemp] = useState(0);
+  const [city, setCity] = useState("");
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
+  const [clothingItems, setClothingItems] = useState([]);
 
   const handleCreateModal = () => {
     setActiveModal("create");
@@ -32,16 +38,55 @@ function App() {
   };
 
   const handleToggleSwitchChange = () => {
-    setCurrentTemperatureUnit((prevUnit) => (prevUnit === "F" ? "C" : "F"));
+    setCurrentTemperatureUnit((prevUnit) =>
+      prevUnit === "F" ? "C" : "F"
+    );
+  };
+
+  const handleOnAddItemSubmit = ({ name, imageUrl, weather }) => {
+    const newItem = {
+      name,
+      imageUrl,
+      weather,
+    };
+
+    postCard(newItem)
+      .then(() => getCards()) // Fetch updated cards after adding a new one
+      .then((cards) => {
+        setClothingItems(cards);
+      })
+      .catch((err) => {
+        console.error("Error adding card:", err);
+      });
+  };
+
+  const handleCardDelete = () => {
+    deleteCard(selectedCard._id)
+      .then(() => getCards()) // Fetch updated cards after deleting one
+      .then((cards) => {
+        setClothingItems(cards);
+      })
+      .catch((err) => {
+        console.error("Error deleting card:", err);
+      });
   };
 
   useEffect(() => {
     getForecastWeather()
       .then((data) => {
         setTemp(parseWeatherData(data));
+        setCity(parseCityData(data));
       })
       .catch((err) => {
-        console.error(err);
+        console.error("Error fetching weather data:", err);
+      });
+
+    getCards()
+      .then((cards) => {
+        setClothingItems(cards);
+      })
+      .catch((err) => {
+        console.error("Error fetching clothing items:", err);
       });
   }, []);
 
@@ -50,76 +95,49 @@ function App() {
       <CurrentTemperatureUnitContext.Provider
         value={{ currentTemperatureUnit, handleToggleSwitchChange }}
       >
-        <Header onCreateModal={handleCreateModal} />
-        <Main weatherTemp={temp} onSelectCard={handleSelectedCard} />
+        <Header onCreateModal={handleCreateModal} weatherCity={city} />
+        <Switch>
+          <Route exact path="/">
+            <Main
+              weatherTemp={temp}
+              onSelectCard={handleSelectedCard}
+              clothingItems={clothingItems}
+            />
+          </Route>
+          <Route path="/profile">
+            <Profile
+              onSelectCard={handleSelectedCard}
+              handleOpenModal={handleCreateModal}
+              clothingItems={clothingItems}
+            />
+          </Route>
+        </Switch>
         <Footer />
         {activeModal === "create" && (
-          <ModalWithForm
-            title="New Garment"
-            buttonText="Add Garment"
-            onClose={handleCloseModal}
-          >
-            <label className="modal__label">Name</label>
-            <input
-              className="modal__input modal__input_type_text"
-              type="text"
-              name="name"
-              minLength="1"
-              maxLength="30"
-              placeholder="Name"
-              id="name"
-            />
-            <label className="modal__label">Image</label>
-            <input
-              className="modal__input modal__input_type_text"
-              type="url"
-              name="link"
-              minLength="1"
-              id="link"
-              placeholder="Image URL"
-            />
-            <label className="modal__label">Select the weather type:</label>
-            <div className="modal__radio-container">
-              <input
-                className="modal__input_radio"
-                type="radio"
-                name="weatherType"
-                id="Hot"
-                value="hot"
-              />
-              <label className="modal__label_radio" htmlFor="Hot">
-                Hot
-              </label>
-              <input
-                className="modal__input_radio"
-                type="radio"
-                name="weatherType"
-                id="Warm"
-                value="warm"
-              />
-              <label className="modal__label_radio" htmlFor="Warm">
-                Warm
-              </label>
-              <input
-                className="modal__input_radio"
-                type="radio"
-                name="weatherType"
-                id="Cold"
-                value="cold"
-              />
-              <label className="modal__label_radio" htmlFor="Cold">
-                Cold
-              </label>
-            </div>
-          </ModalWithForm>
+          <AddItemModal
+            handleCloseModal={handleCloseModal}
+            isOpen={activeModal === "create"}
+            onAddItem={handleOnAddItemSubmit}
+          />
         )}
         {activeModal === "preview" && (
-          <ItemModal selectedCard={selectedCard} onClose={handleCloseModal} />
+          <ItemModal
+            selectedCard={selectedCard}
+            onClose={handleCloseModal}
+            openModal={handleCardDelete} // Pass the delete function here
+          />
+        )}
+        {activeModal === "delete" && (
+          <ModalWithConfirmation
+            isOpen={activeModal === "delete"}
+            onClose={handleCloseModal}
+            onSubmit={handleCardDelete}
+          />
         )}
       </CurrentTemperatureUnitContext.Provider>
     </div>
   );
-}
+};
 
 export default App;
 
