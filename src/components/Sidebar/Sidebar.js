@@ -1,13 +1,18 @@
-import React from 'react';
-import Sidebar from './components/Sidebar';  // Adjust the path accordingly
+import avatarImage from '../../images/avatar.svg'
+import { Link } from "react-router-dom";
+import './Sidebar.css';
 
-const App = () => {
-  return (
-    <div>
-      <h1>Your App Content</h1>
-      <Sidebar />
-    </div>
-  );
+const Sidebar = () => {
+    return (
+        <>
+      <div className="sidebar__avatar-image">
+        <img src={avatarImage} alt="profile picture" />
+      </div>
+      <div className='sidebar__profile-info'>
+            Terrence Tegegne
+      </div>
+    </>
+    )
 }
 
-export default App;
+export default Sidebar;
