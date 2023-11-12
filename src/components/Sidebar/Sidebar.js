@@ -1,6 +1,6 @@
 import avatarImage from '../images/avatar.svg';  // Update the path accordingly
 import { Link } from "react-router-dom";
-import './Sidebar.css';
+import './Sidebar.js';
 
 const Sidebar = () => {
     return (
