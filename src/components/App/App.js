@@ -23,6 +23,7 @@ const App = () => {
   const [city, setCity] = useState("");
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
+  const [error, setError] = useState(null);
 
   const closeModal = () => {
     setActiveModal("");
@@ -50,6 +51,7 @@ const App = () => {
       closeModal();
     } catch (error) {
       console.error("Error adding item:", error);
+      setError("Error adding item. Please try again.");
     }
   };
 
@@ -66,6 +68,7 @@ const App = () => {
       setClothingItems(updatedClothing);
     } catch (error) {
       console.error("Error deleting item:", error);
+      setError("Error deleting item. Please try again.");
     } finally {
       closeModal();
     }
@@ -76,8 +79,9 @@ const App = () => {
       try {
         const cards = await getCards();
         setClothingItems(cards);
+        setError(null); // Reset error state on successful fetch
       } catch (error) {
-        console.error("Error fetching clothing items:", error);
+        setError("Error fetching clothing items. Please try again.");
       }
     };
 
@@ -90,8 +94,10 @@ const App = () => {
         const data = await getForecastWeather();
         setTemp(parseWeatherData(data));
         setCity(parseCityData(data));
+        setError(null); // Reset error state on successful fetch
       } catch (error) {
         console.error("Error fetching weather data:", error);
+        setError("Error fetching weather data. Please try again.");
       }
     };
 
@@ -142,11 +148,13 @@ const App = () => {
             onSubmit={handleCardDelete}
           />
         )}
+        {error && <div className="error-message">{error}</div>}
       </CurrentTemperatureUnitContext.Provider>
     </div>
   );
 };
 
 export default App;
+
 
 
