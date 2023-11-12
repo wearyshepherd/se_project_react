@@ -1,4 +1,4 @@
-import avatarImage from './avatar.svg';  // Update the path accordingly
+import avatarImage from '../images/avatar.svg';  // Update the path accordingly
 import { Link } from "react-router-dom";
 import './Sidebar.css';
 
