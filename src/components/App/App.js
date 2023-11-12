@@ -1,11 +1,4 @@
-import Header from "../Header/Header";
-import Main from "../Main/Main";
-import Profile from "../Profile/Profile";
-import Footer from "../Footer/Footer";
-import AddItemModal from "../AddItemModal/AddItemModal";
-import ItemModal from "../ItemModal/ItemModal";
-import ModalWithConfirmation from "../ModalWithConfirmation/ModalWithConfirmation";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 import { Route, Switch } from "react-router-dom";
 import { getCards, postCard, deleteCard } from "../../utils/api";
@@ -14,6 +7,13 @@ import {
   parseCityData,
   parseWeatherData,
 } from "../../utils/weatherApi.js";
+import Header from "../Header/Header";
+import Main from "../Main/Main";
+import Profile from "../Profile/Profile";
+import Footer from "../Footer/Footer";
+import AddItemModal from "../AddItemModal/AddItemModal";
+import ItemModal from "../ItemModal/ItemModal";
+import ModalWithConfirmation from "../ModalWithConfirmation/ModalWithConfirmation";
 import "./App.css";
 
 const App = () => {
@@ -24,11 +24,7 @@ const App = () => {
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
 
-  const handleCreateModal = () => {
-    setActiveModal("create");
-  };
-
-  const handleCloseModal = () => {
+  const closeModal = () => {
     setActiveModal("");
   };
 
@@ -38,87 +34,76 @@ const App = () => {
   };
 
   const handleToggleSwitchChange = () => {
-    currentTemperatureUnit === "F"
-      ? setCurrentTemperatureUnit("C")
-      : setCurrentTemperatureUnit("F");
+    setCurrentTemperatureUnit((prevUnit) => (prevUnit === "F" ? "C" : "F"));
   };
 
-  const handleOnAddItemSubmit = ({ name, imageUrl, weather }) => {
+  const handleOnAddItemSubmit = async ({ name, imageUrl, weather }) => {
     const newItem = {
       name,
       imageUrl,
       weather,
     };
 
-    postCard(newItem)
-      .then(() => {
-        setClothingItems([newItem, ...clothingItems]);
-        setActiveModal("");
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    try {
+      await postCard(newItem);
+      setClothingItems([newItem, ...clothingItems]);
+      closeModal();
+    } catch (error) {
+      console.error("Error adding item:", error);
+    }
   };
 
-  const openConfirmationModal = () => {
-    setActiveModal("delete");
+  const openModal = (modalType) => {
+    setActiveModal(modalType);
   };
 
-  const handleCardDelete = () => {
-    deleteCard(selectedCard._id)
-      .then(() => {
-        const updatedClothing = clothingItems.filter((item) => {
-          return item._id !== selectedCard._id;
-        });
-        setClothingItems(updatedClothing);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+  const handleCardDelete = async () => {
+    try {
+      await deleteCard(selectedCard._id);
+      const updatedClothing = clothingItems.filter(
+        (item) => item._id !== selectedCard._id
+      );
+      setClothingItems(updatedClothing);
+    } catch (error) {
+      console.error("Error deleting item:", error);
+    } finally {
+      closeModal();
+    }
   };
 
   useEffect(() => {
-    getForecastWeather()
-      .then((data) => {
-        setTemp(parseWeatherData(data));
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
-
-  useEffect(() => {
-    getCards()
-      .then((cards) => {
+    const fetchData = async () => {
+      try {
+        const cards = await getCards();
         setClothingItems(cards);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
-
-  useEffect(() => {
-    if (!activeModal) return;
-
-    const handleEscClose = (e) => {
-      if (e.key === "Escape") {
-        handleCloseModal();
+      } catch (error) {
+        console.error("Error fetching clothing items:", error);
       }
     };
 
-    document.addEventListener("keydown", handleEscClose);
+    fetchData();
+  }, []);
 
-    return () => {
-      document.removeEventListener("keydown", handleEscClose);
+  useEffect(() => {
+    const fetchWeatherData = async () => {
+      try {
+        const data = await getForecastWeather();
+        setTemp(parseWeatherData(data));
+        setCity(parseCityData(data));
+      } catch (error) {
+        console.error("Error fetching weather data:", error);
+      }
     };
-  }, [activeModal]);
+
+    fetchWeatherData();
+  }, []);
 
   return (
     <div className="App">
       <CurrentTemperatureUnitContext.Provider
         value={{ currentTemperatureUnit, handleToggleSwitchChange }}
       >
-        <Header onCreateModal={handleCreateModal} weatherCity={city} />
+        <Header onCreateModal={() => openModal("create")} weatherCity={city} />
         <Switch>
           <Route exact path="/">
             <Main
@@ -130,7 +115,7 @@ const App = () => {
           <Route path="/profile">
             <Profile
               onSelectCard={handleSelectedCard}
-              handleOpenModal={handleCreateModal}
+              handleOpenModal={() => openModal("create")}
               clothingItems={clothingItems}
             />
           </Route>
@@ -138,7 +123,7 @@ const App = () => {
         <Footer />
         {activeModal === "create" && (
           <AddItemModal
-            handleCloseModal={handleCloseModal}
+            handleCloseModal={closeModal}
             isOpen={activeModal === "create"}
             onAddItem={handleOnAddItemSubmit}
           />
@@ -146,14 +131,14 @@ const App = () => {
         {activeModal === "preview" && (
           <ItemModal
             selectedCard={selectedCard}
-            onClose={handleCloseModal}
-            openModal={openConfirmationModal}
+            onClose={closeModal}
+            openModal={() => openModal("delete")}
           />
         )}
         {activeModal === "delete" && (
           <ModalWithConfirmation
             isOpen={activeModal === "delete"}
-            onClose={handleCloseModal}
+            onClose={closeModal}
             onSubmit={handleCardDelete}
           />
         )}
@@ -163,3 +148,5 @@ const App = () => {
 };
 
 export default App;
+
+
