@@ -104,7 +104,6 @@ const App = () => {
         setClothingItems(cards);
       })
       .catch((err) => {
-        console.error(err);
       });
   }, []);
 
