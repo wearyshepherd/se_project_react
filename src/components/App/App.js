@@ -1,46 +1,44 @@
-import Header from "../Header/Header";
-import Main from "../Main/Main";
-import Profile from "../Profile/Profile";
-import Footer from "../Footer/Footer";
-import AddItemModal from "../AddItemModal/AddItemModal";
-import ItemModal from "../ItemModal/ItemModal";
-import ModalWithConfirmation from "../ModalWithConfirmation/ModalWithConfirmation";
-import { useEffect, useState } from "react";
-import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
-import { Route, Switch } from "react-router-dom";
-import { getCards, postCard, deleteCard } from "../../utils/api";
+import React, { useEffect, useState } from 'react';
+import { CurrentTemperatureUnitContext } from '../../contexts/CurrentTemperatureUnitContext';
+import { Route, Switch } from 'react-router-dom';
+import { getCards, postCard, deleteCard } from '../../utils/api';
 import {
   getForecastWeather,
   parseCityData,
   parseWeatherData,
-} from "../../utils/weatherApi.js";
-import "./App.css";
+} from '../../utils/weatherApi.js';
+import Header from '../Header/Header';
+import Main from '../Main/Main';
+import Profile from '../Profile/Profile';
+import Footer from '../Footer/Footer';
+import AddItemModal from '../AddItemModal/AddItemModal';
+import ItemModal from '../ItemModal/ItemModal';
+import ModalWithConfirmation from '../ModalWithConfirmation/ModalWithConfirmation';
+import './App.css';
 
 const App = () => {
-  const [activeModal, setActiveModal] = useState("");
+  const [activeModal, setActiveModal] = useState('');
   const [selectedCard, setSelectedCard] = useState({});
   const [temp, setTemp] = useState(0);
-  const [city, setCity] = useState("");
-  const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
+  const [city, setCity] = useState('');
+  const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState('F');
   const [clothingItems, setClothingItems] = useState([]);
 
   const handleCreateModal = () => {
-    setActiveModal("create");
+    setActiveModal('create');
   };
 
   const handleCloseModal = () => {
-    setActiveModal("");
+    setActiveModal('');
   };
 
   const handleSelectedCard = (card) => {
-    setActiveModal("preview");
+    setActiveModal('preview');
     setSelectedCard(card);
   };
 
   const handleToggleSwitchChange = () => {
-    currentTemperatureUnit === "F"
-      ? setCurrentTemperatureUnit("C")
-      : setCurrentTemperatureUnit("F");
+    setCurrentTemperatureUnit((prevUnit) => (prevUnit === 'F' ? 'C' : 'F'));
   };
 
   const handleOnAddItemSubmit = ({ name, imageUrl, weather }) => {
@@ -61,15 +59,13 @@ const App = () => {
   };
 
   const openConfirmationModal = () => {
-    setActiveModal("delete");
+    setActiveModal('delete');
   };
 
   const handleCardDelete = () => {
     deleteCard(selectedCard._id)
       .then(() => {
-        const updatedClothing = clothingItems.filter((item) => {
-          return item._id !== selectedCard._id;
-        });
+        const updatedClothing = clothingItems.filter((item) => item._id !== selectedCard._id);
         setClothingItems(updatedClothing);
         handleCloseModal();
       })
@@ -79,47 +75,45 @@ const App = () => {
   };
 
   useEffect(() => {
-    getForecastWeather()
-      .then((data) => {
+    const fetchData = async () => {
+      try {
+        const data = await getForecastWeather();
         setTemp(parseWeatherData(data));
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
-
-  useEffect(() => {
-    getForecastWeather()
-      .then((data) => {
         setCity(parseCityData(data));
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      } catch (error) {
+        console.error('Error fetching weather data:', error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   useEffect(() => {
-    getCards()
-      .then((cards) => {
+    const fetchClothingItems = async () => {
+      try {
+        const cards = await getCards();
         setClothingItems(cards);
-      })
-      .catch((err) => {
-      });
+      } catch (error) {
+        console.error('Error fetching clothing items:', error);
+      }
+    };
+
+    fetchClothingItems();
   }, []);
 
   useEffect(() => {
     if (!activeModal) return;
 
     const handleEscClose = (e) => {
-      if (e.key === "Escape") {
+      if (e.key === 'Escape') {
         handleCloseModal();
       }
     };
 
-    document.addEventListener("keydown", handleEscClose);
+    document.addEventListener('keydown', handleEscClose);
 
     return () => {
-      document.removeEventListener("keydown", handleEscClose);
+      document.removeEventListener('keydown', handleEscClose);
     };
   }, [activeModal]);
 
@@ -146,23 +140,23 @@ const App = () => {
           </Route>
         </Switch>
         <Footer />
-        {activeModal === "create" && (
+        {activeModal === 'create' && (
           <AddItemModal
             handleCloseModal={handleCloseModal}
-            isOpen={activeModal === "create"}
+            isOpen={activeModal === 'create'}
             onAddItem={handleOnAddItemSubmit}
           />
         )}
-        {activeModal === "preview" && (
+        {activeModal === 'preview' && (
           <ItemModal
             selectedCard={selectedCard}
             onClose={handleCloseModal}
             openModal={openConfirmationModal}
           />
         )}
-        {activeModal === "delete" && (
+        {activeModal === 'delete' && (
           <ModalWithConfirmation
-            isOpen={activeModal === "delete"}
+            isOpen={activeModal === 'delete'}
             onClose={handleCloseModal}
             onSubmit={handleCardDelete}
           />
