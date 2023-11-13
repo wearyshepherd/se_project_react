@@ -1,17 +1,15 @@
-import React from "react";
-import avatarLogo from "../../images/Avatar.svg";
+import avatarImage from "../../images/avatar.svg";
 import "./Sidebar.css";
 
-function SideBar() {
+const Sidebar = () => {
   return (
-    <div className="sidebar">
-      <img
-        src={avatarLogo}
-        alt="sidebar__avatar"
-        className="sidebar__avatar-image"
-      />
-      <p className="sidebar__avatar-name">Catelyn Richard</p>
-    </div>
+    <>
+      <div className="sidebar__avatar-image">
+        <img src={avatarImage} alt="profile picture" />
+      </div>
+      <div className="sidebar__profile-info">Terrence Tegegne</div>
+    </>
   );
-}
-export default SideBar;
+};
+
+export default Sidebar;
