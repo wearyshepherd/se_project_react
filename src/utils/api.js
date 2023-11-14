@@ -11,7 +11,7 @@ const getCards = () => {
   return fetch(`${baseUrl}/items`).then(processServerResponce);
 };
 
-const postCard = ({ name, imageUrl, weather }) => {
+const postCard = ({name, imageUrl, weather}) => {
   return fetch(`${baseUrl}/items`, {
     method: 'POST',
     headers: {
@@ -22,7 +22,7 @@ const postCard = ({ name, imageUrl, weather }) => {
       imageUrl: imageUrl,
       weather: weather,
     })
-  }).then(processServerResponce);
+  }).then(processServerResponce)
 }
 
 const deleteCard = (id) => {
