@@ -12,4 +12,4 @@ const Sidebar = () => {
   );
 };
 
-import SideBar from './components/subdirectory/SideBar';
+export default SideBar;
