@@ -1,5 +1,5 @@
 // api.js
-const baseUrl = "http://localhost:3001";
+const baseUrl = "http://localhost:3000";
 
 const processServerResponse = (res) => {
   if (!res.ok) {
