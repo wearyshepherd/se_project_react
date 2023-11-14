@@ -86,7 +86,7 @@ const App = () => {
     };
 
     fetchData();
-  }, []);
+  }, []); // Only fetch weather data once on component mount
 
   useEffect(() => {
     const fetchClothingItems = async () => {
@@ -99,7 +99,7 @@ const App = () => {
     };
 
     fetchClothingItems();
-  }, []);
+  }, []); // Only fetch clothing items once on component mount
 
   useEffect(() => {
     if (!activeModal) return;
