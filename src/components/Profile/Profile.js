@@ -1,5 +1,5 @@
 import React from "react";
-import SideBar from "../SideBarr/SideBar";
+import SideBar from "../SideBar/SideBar";
 import ClothesSection from "../ClothingSection/ClothingSection";
 import "./Profile.css";
 
@@ -7,7 +7,7 @@ const Profile = ({ onSelectCard, handleOpenModal, clothingItems }) => {
   return (
     <div className="profile">
       <div className="profile__Sidebar">
-        <Sidebar />
+        <SideBar />
       </div>
       <section className="profile__clothessection">
         <ClothesSection
