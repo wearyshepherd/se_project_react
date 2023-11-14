@@ -25,4 +25,4 @@ const ClothingSection = ({ onSelectCard, handleOpenModal, clothingItems }) => {
   );
 };
 
-export default ClothingSection;
+export default Clothingsection;
