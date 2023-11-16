@@ -1,0 +1,32 @@
+.clothingsection__content {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-left: 50px;
+  margin-bottom: 16px;
+}
+
+.clothingsection__header {
+  color: #000;
+  font-size: 20px;
+  line-height: 24.8px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.clothingsection__add-clothes-button {
+  border: none;
+  font-size: 20px;
+  line-height: 24.8px;
+  background: none;
+  opacity: 0.5;
+  font-weight: 700;
+  padding: 0;
+}
+
+.clothingsection__card-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 21px;
+}
