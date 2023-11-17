@@ -1,13 +1,13 @@
 import React from "react";
-import Sidebar from "../Sidebar/Sidebar";
-import ClothesSection from "../ClothingSection/ClothingSection";
+import SideBar from "../SideBar/SideBar";
+import ClothesSection from "../ClothesSection/ClothesSection";
 import "./Profile.css";
 
 const Profile = ({ onSelectCard, handleOpenModal, clothingItems }) => {
   return (
     <div className="profile">
       <div className="profile__sidebar">
-        <Sidebar />
+        <SideBar />
       </div>
       <section className="profile__clothessection">
         <ClothesSection
