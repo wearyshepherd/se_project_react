@@ -1,13 +1,14 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard";
-// import { defaultClothingItems } from "../../utils/constants";
 import { getWeatherType } from "../../utils/weatherApi";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 import "./Main.css";
 
-const Main = ({ weatherTemp, onSelectCard, clothingItems}) => {
-  const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
+const Main = ({ weatherTemp, onSelectCard, clothingItems }) => {
+  const { currentTemperatureUnit } = useContext(
+    CurrentTemperatureUnitContext
+  );
   const weather = getWeatherType(weatherTemp);
 
   const filteredCards = clothingItems.filter((item) => {
@@ -23,15 +24,9 @@ const Main = ({ weatherTemp, onSelectCard, clothingItems}) => {
           wear:
         </h3>
         <ul className="main__card-wrapper">
-          {filteredCards.map((item) => {
-            return (
-              <ItemCard
-                key={item._id}
-                item={item}
-                onSelectCard={onSelectCard}
-              />
-            );
-          })}
+          {filteredCards.map((item) => (
+            <ItemCard key={item._id} item={item} onSelectCard={onSelectCard} />
+          ))}
         </ul>
       </section>
     </main>
