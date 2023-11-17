@@ -1,6 +1,7 @@
+// api.js
 const baseUrl = "http://localhost:3001";
 
-const processServerResponce = (res) => {
+const processServerResponse = (res) => {
   if (!res.ok) {
     return Promise.reject(`Error: ${res.status}`);
   }
@@ -8,10 +9,10 @@ const processServerResponce = (res) => {
 };
 
 const getCards = () => {
-  return fetch(`${baseUrl}/items`).then(processServerResponce);
+  return fetch(`${baseUrl}/items`).then(processServerResponse);
 };
 
-const postCard = ({name, imageUrl, weather}) => {
+const postCard = ({ name, imageUrl, weather }) => {
   return fetch(`${baseUrl}/items`, {
     method: 'POST',
     headers: {
@@ -22,13 +23,13 @@ const postCard = ({name, imageUrl, weather}) => {
       imageUrl: imageUrl,
       weather: weather,
     })
-  }).then(processServerResponce)
+  }).then(processServerResponse);
 }
 
 const deleteCard = (id) => {
   return fetch(`${baseUrl}/items/${id}`, {
     method: 'DELETE',
-  }).then(processServerResponce);
+  }).then(processServerResponse);
 };
 
-export { getCards, postCard, deleteCard };
+export { getCards, postCard, deleteCard, processServerResponse };
