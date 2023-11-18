@@ -18,30 +18,36 @@ const AddItemModal = ({ handleCloseModal, isOpen, onAddItem }) => {
       isOpen={isOpen}
       onSubmit={handleSubmit}
     >
-      <label className="modal__label">Name</label>
+      <label className="modal__label" htmlFor="name">
+        Name
+      </label>
       <input
         className="modal__input modal__input_type_text"
         type="text"
         name="name"
+        id="name"
         value={values.name || ""}
         minLength="1"
         maxLength="30"
         placeholder="Name"
-        id="name"
         onChange={handleChange}
       />
-      <label className="modal__label">Image</label>
+
+      <label className="modal__label" htmlFor="link">
+        Image
+      </label>
       <input
         className="modal__input modal__input_type_text"
         type="url"
         name="imageUrl"
+        id="link"
         value={values.imageUrl || ""}
         minLength="1"
-        id="link"
         placeholder="Image URL"
         onChange={handleChange}
       />
-      <label className="modal__label">Select the weather type:</label>
+
+      <p className="modal__label">Select the weather type:</p>
       <div>
         <div className="modal__radio-container">
           <input
@@ -56,6 +62,7 @@ const AddItemModal = ({ handleCloseModal, isOpen, onAddItem }) => {
             Hot
           </label>
         </div>
+
         <div className="modal__radio-container">
           <input
             className="modal__input_radio"
@@ -69,6 +76,7 @@ const AddItemModal = ({ handleCloseModal, isOpen, onAddItem }) => {
             Warm
           </label>
         </div>
+
         <div className="modal__radio-container">
           <input
             className="modal__input_radio"
@@ -83,6 +91,7 @@ const AddItemModal = ({ handleCloseModal, isOpen, onAddItem }) => {
           </label>
         </div>
       </div>
+
       <div className="modal__button-container">
         <button className="modal__submit-button" type="submit">
           Add garment
