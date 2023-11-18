@@ -1,10 +1,10 @@
 import React from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import './AddItemModal.css';
+import "./AddItemModal.css";
 import { useForm } from "../../hooks/useForm";
 
 const AddItemModal = ({ handleCloseModal, isOpen, onAddItem }) => {
-  const {values, handleChange, setValues} = useForm({});
+  const { values, handleChange } = useForm({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,18 +13,17 @@ const AddItemModal = ({ handleCloseModal, isOpen, onAddItem }) => {
 
   return (
     <ModalWithForm
-      title="New Garmnet"
+      title="New Garment"
       onClose={handleCloseModal}
       isOpen={isOpen}
       onSubmit={handleSubmit}
     >
       <label className="modal__label">Name</label>
-
       <input
         className="modal__input modal__input_type_text"
         type="text"
         name="name"
-        value={values.name || ''}
+        value={values.name || ""}
         minLength="1"
         maxLength="30"
         placeholder="Name"
@@ -36,7 +35,7 @@ const AddItemModal = ({ handleCloseModal, isOpen, onAddItem }) => {
         className="modal__input modal__input_type_text"
         type="url"
         name="imageUrl"
-        value={values.imageUrl || ''}
+        value={values.imageUrl || ""}
         minLength="1"
         id="link"
         placeholder="Image URL"
@@ -72,14 +71,14 @@ const AddItemModal = ({ handleCloseModal, isOpen, onAddItem }) => {
         </div>
         <div className="modal__radio-container">
           <input
-            className=" modal__input_radio"
+            className="modal__input_radio"
             type="radio"
             name="weather"
             id="Cold"
             value="cold"
             onChange={handleChange}
           />
-          <label className=" modal__label_radio" htmlFor="Cold">
+          <label className="modal__label_radio" htmlFor="Cold">
             Cold
           </label>
         </div>
