@@ -2,9 +2,9 @@
 import { apiKey, latitude, longitude } from "../utils/constants";
 import { processServerResponse } from "../utils/api";
 
-const getForecastWeather = () => {
+const getForecastWeather = (units = "imperial") => {
   const weatherData = fetch(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${apiKey}`
+    `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=${units}&appid=${apiKey}`
   ).then(processServerResponse);
 
   return weatherData;
@@ -13,6 +13,11 @@ const getForecastWeather = () => {
 const parseWeatherData = (data) => {
   const main = data.main;
   const temp = main && main.temp;
+
+  if (!temp) {
+    return null;
+  }
+
   return Math.ceil(temp);
 };
 
