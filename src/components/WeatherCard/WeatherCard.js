@@ -1,3 +1,4 @@
+// WeatherCard.js
 import React, { useContext } from "react";
 import { weatherConditions } from "../../utils/constants";
 import { findWeatherOption } from "../../utils/weatherApi";
@@ -13,11 +14,11 @@ const WeatherCard = ({ day, weather, weatherTemp }) => {
       ? Math.round(((weatherTemp - 32) * 5) / 9)
       : weatherTemp;
 
-  const weatherOption = weatherConditions.filter((option) =>
+  const weatherOption = weatherConditions.find((option) =>
     findWeatherOption(option, day, weather)
   );
 
-  const imageSrcUrl = weatherOption[0].url || "";
+  const imageSrcUrl = weatherOption?.url || "";
 
   return (
     <div className="weather">
@@ -27,7 +28,7 @@ const WeatherCard = ({ day, weather, weatherTemp }) => {
       <img
         className="weather__image"
         src={imageSrcUrl}
-        alt={weatherOption[0].weather}
+        alt={weatherOption?.weather}
       />
     </div>
   );
