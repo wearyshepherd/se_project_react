@@ -1,5 +1,12 @@
 // App.js
-import React, { useEffect, useState } from "react";
+import Header from "../Header/Header";
+import Main from "../Main/Main";
+import Profile from "../Profile/Profile";
+import Footer from "../Footer/Footer";
+import AddItemModal from "../AddItemModal/AddItemModal";
+import ItemModal from "../ItemModal/ItemModal";
+import ModalWithConfirmation from "../ModalWithConfirmation/ModalWithConfirmation";
+import { useEffect, useState } from "react";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 import { Route, Switch } from "react-router-dom";
 import { getCards, postCard, deleteCard } from "../../utils/api";
@@ -8,13 +15,6 @@ import {
   parseCityData,
   parseWeatherData,
 } from "../../utils/weatherApi.js";
-import Header from "../Header/Header";
-import Main from "../Main/Main";
-import Profile from "../Profile/Profile";
-import Footer from "../Footer/Footer";
-import AddItemModal from "../AddItemModal/AddItemModal";
-import ItemModal from "../ItemModal/ItemModal";
-import ModalWithConfirmation from "../ModalWithConfirmation/ModalWithConfirmation";
 import "./App.css";
 
 const App = () => {
@@ -39,9 +39,9 @@ const App = () => {
   };
 
   const handleToggleSwitchChange = () => {
-    currentTemperatureUnit === "F"
-      ? setCurrentTemperatureUnit("C")
-      : setCurrentTemperatureUnit("F");
+    setCurrentTemperatureUnit((prevUnit) =>
+      prevUnit === "F" ? "C" : "F"
+    );
   };
 
   const handleOnAddItemSubmit = ({ name, imageUrl, weather }) => {
