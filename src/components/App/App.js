@@ -95,7 +95,7 @@ const App = () => {
       .catch((err) => {
         console.error(err);
       });
-  }, [currentTemperatureUnit]);
+  }, []);
 
   useEffect(() => {
     if (!activeModal) return;
