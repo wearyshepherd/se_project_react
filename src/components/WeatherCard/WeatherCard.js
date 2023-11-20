@@ -1,3 +1,4 @@
+// WeatherCard.js
 import React, { useContext } from "react";
 import { weatherConditions } from "../../utils/constants";
 import { findWeatherOption } from "../../utils/weatherApi";
@@ -7,11 +8,8 @@ import "./WeatherCard.css";
 const WeatherCard = ({ day, weather, weatherTemp }) => {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
 
-  // Convert temperature to Celsius if the unit is Celsius
-  const convertedTemp =
-    currentTemperatureUnit === "C"
-      ? Math.round(((weatherTemp - 32) * 5) / 9)
-      : Math.round(weatherTemp);
+  // No need to convert temperature again, it's already converted
+  const convertedTemp = Math.round(weatherTemp);
 
   const weatherOption = weatherConditions.filter((option) =>
     findWeatherOption(option, day, weather)
