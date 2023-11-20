@@ -19,7 +19,7 @@ import "./App.css";
 const App = () => {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
-  const [temp, setTemp] = useState(0);
+  const [temp, setTemp] = useState({ f: 0, c: 0 }); // Initialize with an object
   const [city, setCity] = useState("");
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
@@ -79,9 +79,16 @@ const App = () => {
   };
 
   useEffect(() => {
-    getForecastWeather(currentTemperatureUnit === "F" ? "imperial" : "metric")
+    getForecastWeather("imperial") // Removed unnecessary conversion
       .then((data) => {
-        setTemp(parseWeatherData(data));
+        const tempInFahrenheit = parseWeatherData(data);
+        const tempInCelsius = Math.round((tempInFahrenheit - 32) * (5 / 9));
+
+        setTemp({
+          f: tempInFahrenheit,
+          c: tempInCelsius,
+        });
+
         setCity(parseCityData(data));
       })
       .catch((err) => {
@@ -95,7 +102,7 @@ const App = () => {
       .catch((err) => {
         console.error(err);
       });
-  }, []);
+  }, []); // <-- Empty dependency array
 
   useEffect(() => {
     if (!activeModal) return;
@@ -122,7 +129,7 @@ const App = () => {
         <Switch>
           <Route exact path="/">
             <Main
-              weatherTemp={temp}
+              weatherTemp={currentTemperatureUnit === "F" ? temp.f : temp.c}
               onSelectCard={handleSelectedCard}
               clothingItems={clothingItems}
             />
@@ -163,3 +170,5 @@ const App = () => {
 };
 
 export default App;
+
+
