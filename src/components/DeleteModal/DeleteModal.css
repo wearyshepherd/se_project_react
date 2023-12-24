@@ -1,0 +1,75 @@
+.delete__modal {
+  display: flex;
+  justify-content: space-around;
+  padding: 0;
+  width: 670px;
+  height: 280px;
+  margin: auto;
+  border-radius: 20px;
+  position: relative;
+  font-family: "CabinetGrotesk", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  color: #000;
+  background-color: #fff;
+}
+
+.delete__modal-button_exit {
+  background-image: url("../../images/close_button.png");
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  width: 16px;
+  height: 16px;
+  border: none;
+  background-color: transparent;
+}
+
+.delete__modal-button_exit:hover {
+  cursor: pointer;
+}
+
+.delete__modal-wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: auto;
+}
+
+.delete__modal-text {
+  text-align: center;
+  margin: 0;
+}
+
+.delete__modal-button_confirm {
+  border: none;
+  margin: 40px 0 24px 0;
+  font-family: "CabinetGrotesk", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  color: #ff4d00;
+  background-color: #fff;
+}
+
+.delete__modal-button_confirm:hover {
+  cursor: pointer;
+}
+
+.delete__modal-button_cancel {
+  border: none;
+  font-family: "CabinetGrotesk", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  color: #000;
+  background-color: #fff;
+}
+
+.delete__modal-button_cancel:hover {
+  cursor: pointer;
+}
