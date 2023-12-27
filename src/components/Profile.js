@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import SideBar from "./SideBar";
 import ClothesSection from "./ClothesSection";
 import "../blocks/Profile.css";
-import { CurrentUserContext } from "./path-to-your-context-file";
+import { CurrentUserContext } from "../contexts/CurrentUserContext"; // Update this path
 
 function Profile({
   onSelectedCard,
@@ -13,7 +13,6 @@ function Profile({
   onLogout,
   handleLikeClick
 }) {
-  
   const currentUser = useContext(CurrentUserContext);
 
   return (
@@ -35,4 +34,3 @@ function Profile({
 }
 
 export default Profile;
-
