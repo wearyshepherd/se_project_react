@@ -1,10 +1,10 @@
+import React, { useContext } from "react";
 import SideBar from "./SideBar";
 import ClothesSection from "./ClothesSection";
 import "../blocks/Profile.css";
-import React from "react";
+import { CurrentUserContext } from "../contexts/CurrentUserContext"; // Update this path
 
 function Profile({
-  currentUser,
   onSelectedCard,
   handleCreateModal,
   clothingItems,
@@ -13,6 +13,8 @@ function Profile({
   onLogout,
   handleLikeClick
 }) {
+  const currentUser = useContext(CurrentUserContext);
+
   return (
     <div className="profile">
       <SideBar
@@ -30,4 +32,5 @@ function Profile({
     </div>
   );
 }
+
 export default Profile;
