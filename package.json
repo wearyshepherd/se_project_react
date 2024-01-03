@@ -17,7 +17,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "npm run build && scp -r ./build/* dvnnychavez2@wtwr.goldjamica.com:/home/dvnnychavez2/frontend"
+    "deploy": "npm run build && scp -r ./build/* dvnnychavez2@www.goldjamaica.jumpingcrab.com:/home/dvnnychavez2/frontend"
   },
   "eslintConfig": {
     "extends": [
@@ -37,7 +37,7 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://www.wtwr.goldjamica.com/",
+  "homepage": "https://www.goldjamaica.jumpingcrab.com/",
   "devDependencies": {
     "jest": "^27.5.1",
     "react-scripts": "^5.0.1"
