@@ -1,0 +1,74 @@
+.card {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: center;
+}
+
+.card_image {
+  width: 328px;
+  height: 328px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.card__likeButton {
+  width: 22px;
+  height: 19px;
+  transition: opacity 0.5s ease-in-out;
+  cursor: pointer;
+  background: no-repeat;
+  border: none;
+}
+
+.card:hover {
+  cursor: pointer;
+}
+
+.card__section {
+  margin: 40px 0 0 0;
+  font-family: "Familjen Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.card__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 17px;
+  justify-content: center;
+  margin: 34px 0 0 0;
+}
+
+.card__title {
+  display: flex;
+  position: relative;
+  gap: 10px;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 6px;
+  padding: 5px;
+  top: 45px; 
+}
+
+.card__element {
+  margin: 0;
+  text-align: center;
+  border-radius: 4px;
+  color: rgba(0, 0, 0, 0.6);
+  background-color: #fff;
+  font-family: "Familjen Grotesk", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.card__likeButton-active {
+  background-image: url("../images/like-button-active.svg");
+}
+
+.card__likeButton-inactive {
+  background-image: url("../images/like-button-inactive.svg");
+}
