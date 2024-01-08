@@ -14,6 +14,17 @@ export const checkResponse = (res) => {
   }
 };
 
+    export const updateItem = (id, updatedFields, token) => {
+      return fetch(`${baseUrl}/items/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(updatedFields),
+      }).then(checkResponse);
+    };
+
 export const addItem = ({ name, imageUrl, weather }) => {
   console.log("Request Payload:", { name, imageUrl, weather });
   return fetch(`${baseUrl}/items`, {
