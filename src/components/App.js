@@ -35,13 +35,10 @@ import "../blocks/App.css";
 function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
-  const [temp, setTemp] = useState(0);
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
-  const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
-  const [weatherLocation, setWeatherLocation] = useState("");
 
   const handleLoginModal = () => {
     setActiveModal("login");
