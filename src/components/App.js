@@ -7,15 +7,12 @@ import {
 } from "react-router-dom";
 import Header from "./Header";
 import Main from "./Main";
+// Remove or comment out these lines
 import Profile from "./Profile";
 import Footer from "./Footer";
 import ItemModal from "./ItemModal";
 import { defaultClothingItems } from "../utils/utils";
-import {
-  getForecastWeather,
-  parseWeatherData,
-  parseLocation,
-} from "../utils/weatherApi";
+import { getForecastWeather, parseWeatherData, parseLocation } from "../utils/weatherApi";
 import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import AddItemModal from "./AddItemModal";
@@ -32,6 +29,7 @@ import LoginModal from "./LoginModal";
 import ProtectedRoute from "./ProtectedRoute";
 import EditProfileModal from "./EditProfileModal";
 import "../blocks/App.css";
+
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
@@ -313,4 +311,5 @@ function App() {
 }
 
 export default App;
+
 
