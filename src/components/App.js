@@ -7,12 +7,15 @@ import {
 } from "react-router-dom";
 import Header from "./Header";
 import Main from "./Main";
-// Remove or comment out these lines
 import Profile from "./Profile";
 import Footer from "./Footer";
 import ItemModal from "./ItemModal";
 import { defaultClothingItems } from "../utils/utils";
-import { getForecastWeather, parseWeatherData, parseLocation } from "../utils/weatherApi";
+import {
+  getForecastWeather,
+  parseWeatherData,
+  parseLocation,
+} from "../utils/weatherApi";
 import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import AddItemModal from "./AddItemModal";
@@ -28,17 +31,18 @@ import RegisterModal from "./RegisterModal";
 import LoginModal from "./LoginModal";
 import ProtectedRoute from "./ProtectedRoute";
 import EditProfileModal from "./EditProfileModal";
-
 import "../blocks/App.css";
-
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
+  const [temp, setTemp] = useState(0);
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
+  const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+  const [weatherLocation, setWeatherLocation] = useState("");
 
   const handleLoginModal = () => {
     setActiveModal("login");
@@ -309,5 +313,6 @@ function App() {
 }
 
 export default App;
+
 
 
