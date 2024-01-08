@@ -28,6 +28,7 @@ import RegisterModal from "./RegisterModal";
 import LoginModal from "./LoginModal";
 import ProtectedRoute from "./ProtectedRoute";
 import EditProfileModal from "./EditProfileModal";
+
 import "../blocks/App.css";
 
 
