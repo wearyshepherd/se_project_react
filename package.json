@@ -17,7 +17,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "npm run build && scp -r ./build/* wearyshepherd@goldiejama.com:/home/wearyshepherd/frontend"
+    "deploy": "npm run build && scp -r ./build/* wearyshepherd@se-project-react.pages.dev.com:/home/wearyshepherd/frontend"
   },
   "eslintConfig": {
     "extends": [
@@ -37,7 +37,7 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://www.goldiejama.com/",
+  "homepage": "https://www.se-project-react.pages.dev.com/",
   "devDependencies": {
     "jest": "^27.5.1",
     "react-scripts": "^5.0.1"
