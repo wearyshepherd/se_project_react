@@ -2,7 +2,7 @@ import { checkResponse } from "./api";
 
 const authBaseUrl =
   process.env.NODE_ENV === "production"
-    ? "https://api.https://se-project-react.pages.dev/"
+    ? "https://se-project-react.pages.dev/"
     : "http://localhost:3001";
 
 export const registerUser = ({ email, password, name, avatar }) => {
