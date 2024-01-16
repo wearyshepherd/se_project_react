@@ -18,6 +18,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy": "npm run build && scp -r build/* wearyshepherd@wtwr.pages.dev:/home/wearyshepherd/frontend"
+
   },
   "eslintConfig": {
     "extends": [
