@@ -38,30 +38,30 @@ function Main({
 
   const weatherType = getWeatherType();
 
-const filteredCards = clothingItems?.filter((item) => {
-  return item?.weather?.toLowerCase() === weatherType;
-});
+  const filteredCards = clothingItems?.filter((item) => {
+    return item?.weather?.toLowerCase() === weatherType;
+  });
 
-return (
-  <main className="main">
-    <WeatherCard day={true} type="sunny" weatherTemp={temp} />
-    <section className="card__section" id="card-section">
-      Today is {temp}° {currentTemperatureUnit.currentTemperatureUnit} / You
-      may want to wear:
-      <div className="card__items">
-        {filteredCards?.map((item) => (
-          <ItemCard
-            key={item?._id ?? item?.id}
-            item={item}
-            onSelectedCard={onSelectedCard}
-            handleLikeClick={handleLikeClick}
-            isLoggedIn={isLoggedIn}
-          />
-        ))}
-      </div>
-    </section>
-  </main>
-);
-
+  return (
+    <main className="main">
+      <WeatherCard day={true} type="sunny" weatherTemp={temp} />
+      <section className="card__section" id="card-section">
+        Today is {temp}° {currentTemperatureUnit.currentTemperatureUnit} / You
+        may want to wear:
+        <div className="card__items">
+          {filteredCards?.map((item) => (
+            <ItemCard
+              key={item?._id ?? item?.id}
+              item={item}
+              onSelectedCard={onSelectedCard}
+              handleLikeClick={handleLikeClick}
+              isLoggedIn={isLoggedIn}
+            />
+          ))}
+        </div>
+      </section>
+    </main>
+  );
+}
 
 export default Main;
