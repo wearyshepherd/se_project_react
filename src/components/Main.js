@@ -38,11 +38,12 @@ function Main({
 
   const weatherType = getWeatherType();
 
-  console.log("clothingItems:", clothingItems);
-  const filteredCards = Array.isArray(clothingItems)
-    ? clothingItems
-        .filter((item) => item && item.weather && item.weather.toLowerCase() === weatherType)
-    : [];
+console.log("clothingItems:", clothingItems);
+const filteredCards = Array.isArray(clothingItems)
+  ? clothingItems
+      .filter((item) => item && item.weather && item.weather.toLowerCase() === weatherType)
+  : [];
+console.log("filteredCards:", filteredCards);
 
   return (
     <main className="main">
