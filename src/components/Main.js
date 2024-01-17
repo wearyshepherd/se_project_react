@@ -40,11 +40,10 @@ function Main({
 
   const weatherType = getWeatherType();
 
-  const filteredCards = Array.isArray(clothingItems)
-    ? clothingItems.filter((item) => {
-        return item?.weather && item.weather.toLowerCase() === weatherType;
-      })
-    : [];
+const filteredCards = Array.isArray(clothingItems)
+  ? clothingItems
+      .filter((item) => item?.weather && item.weather.toLowerCase() === weatherType)
+  : [];
 
   return (
     <main className="main">
