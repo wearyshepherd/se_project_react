@@ -4,6 +4,8 @@ import "../blocks/Main.css";
 import React, { useContext } from "react";
 import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext";
 
+// ... (your imports)
+
 function Main({
   isLoggedIn,
   weatherTemp,
@@ -38,9 +40,11 @@ function Main({
 
   const weatherType = getWeatherType();
 
-  const filteredCards = clothingItems?.filter((item) => {
-    return item?.weather?.toLowerCase() === weatherType;
-  });
+  const filteredCards = Array.isArray(clothingItems)
+    ? clothingItems.filter((item) => {
+        return item?.weather && item.weather.toLowerCase() === weatherType;
+      })
+    : [];
 
   return (
     <main className="main">
@@ -49,7 +53,7 @@ function Main({
         Today is {temp}° {currentTemperatureUnit.currentTemperatureUnit} / You
         may want to wear:
         <div className="card__items">
-          {filteredCards?.map((item) => (
+          {filteredCards.map((item) => (
             <ItemCard
               key={item?._id ?? item?.id}
               item={item}
@@ -65,3 +69,4 @@ function Main({
 }
 
 export default Main;
+
