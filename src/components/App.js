@@ -153,7 +153,7 @@ function App() {
       })
       .catch(console.error);
   };
-
+  
   const handleLikeClick = ({ id, isLiked }) => {
     const token = localStorage.getItem("jwt");
     !isLiked
@@ -303,39 +303,38 @@ function App() {
                 onAddItem={onAddItem}
               />
             )}
-
-{activeModal === "register" && (
-  <RegisterModal
-    onOpen={activeModal === "register"}
-    handleCloseModal={handleCloseModal}
-    onClose={handleCloseModal}
-    onRegister={handleRegister}
-    setActiveModal={setActiveModal}
-  />
-)}
-{activeModal === "login" && (
-  <LoginModal
-    onOpen={activeModal === "login"}
-    onClose={handleCloseModal}
-    handleCloseModal={handleCloseModal}
-    setActiveModal={setActiveModal}
-    onRegister={handleRegisterModal}
-    onLogin={handleLogin}
-  />
-)}
-{activeModal === "editProfile" && (
-  <EditProfileModal
-    handleCloseModal={handleCloseModal}
-    onClose={handleCloseModal}
-    isOpen={activeModal === "editProfile"}
-    onSubmit={handleEditProfile}
-  />
-)}
-</CurrentTemperatureUnitContext.Provider>
-</CurrentUserContext.Provider>
-</div>
-</Router>
-);
+            {activeModal === "register" && (
+              <RegisterModal
+                onOpen={activeModal === "register"}
+                handleCloseModal={handleCloseModal}
+                onClose={handleCloseModal}
+                onRegister={handleRegister}
+                setActiveModal={setActiveModal}
+              />
+            )}
+            {activeModal === "login" && (
+              <LoginModal
+                onOpen={activeModal === "login"}
+                onClose={handleCloseModal}
+                handleCloseModal={handleCloseModal}
+                setActiveModal={setActiveModal}
+                onRegister={handleRegisterModal}
+                onLogin={handleLogin}
+              />
+            )}
+            {activeModal === "editProfile" && (
+              <EditProfileModal
+                handleCloseModal={handleCloseModal}
+                onClose={handleCloseModal}
+                isOpen={activeModal === "editProfile"}
+                onSubmit={handleEditProfile}
+              />
+            )}
+          </CurrentTemperatureUnitContext.Provider>
+        </CurrentUserContext.Provider>
+      </div>
+    </Router>
+  );
 }
 
 export default App;
