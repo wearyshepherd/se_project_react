@@ -2,7 +2,7 @@ import { checkResponse } from "./api";
 
 const authBaseUrl =
   process.env.NODE_ENV === "production"
-    ? "https://35.230.18.195"
+    ? "https://wtwr-api.onrender.com"
     : "http://localhost:3001";
 
 export const registerUser = ({ email, password, name, avatar }) => {
