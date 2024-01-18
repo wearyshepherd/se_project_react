@@ -1,6 +1,6 @@
 const baseUrl =
   process.env.NODE_ENV === "production"
-    ? "https://se-project-react.pages.dev/"
+    ? "https://35.230.18.195/"
     : "http://localhost:3001";
 
 export const checkResponse = (res) => {
