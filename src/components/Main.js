@@ -38,17 +38,9 @@ function Main({
 
   const weatherType = getWeatherType();
 
-  console.log("clothingItems:", clothingItems);
-  const filteredCards = Array.isArray(clothingItems)
-    ? clothingItems.filter(
-        (item) =>
-          item &&
-          typeof item === "object" &&
-          item.weather &&
-          item.weather.toLowerCase() === weatherType
-      )
-    : [];
-  console.log("filteredCards:", filteredCards);
+  const filteredCards = clothingItems?.filter((item) => {
+    return item.weather?.toLowerCase() === weatherType;
+  });
 
   return (
     <main className="main">
