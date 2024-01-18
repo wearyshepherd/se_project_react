@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 import React, { useContext, useEffect, useState } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import "../blocks/ItemCard.css";
