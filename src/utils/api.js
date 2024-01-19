@@ -1,6 +1,6 @@
 const baseUrl =
   process.env.NODE_ENV === "production"
-    ? "https://wtwr-api.onrender.com"
+    ? "https://wtwr-api.onrender.com" 
     : "http://localhost:3001";
 
 export const checkResponse = (res) => {
